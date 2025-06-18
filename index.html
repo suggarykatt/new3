@@ -126,22 +126,9 @@
       100% { transform: translate(100vw, 100vh); opacity: 0; }
     }
 
-    .petal {
-      position: fixed;
-      top: -50px;
-      background-image: url('https://i.imgur.com/EMD8RHP.png');
-      background-size: contain;
-      background-repeat: no-repeat;
-      width: 25px;
-      height: 25px;
-      animation: fall 10s linear infinite;
-      z-index: -1;
-    }
-
-    @keyframes fall {
-      0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
-    }
+  
+   
+   
 
     .heart {
       position: fixed;
@@ -202,18 +189,14 @@
     }
     
 
-  @keyframes moveFog {
-    from { background-position: 0 0; }
-    to { background-position: 1000px 0; }
-  }
+
 
   </style>
-  <div class="fog-layer"></div>
+ 
 </head>
 <body>
-  <div class="moon"></div>
-  <div class="fog"></div>
-  <div class="fog-layer2"></div>
+  
+  
   <audio id="bgMusic" loop>
     <source src="ashiqui2.mp3" type="audio/mpeg" />
   </audio>
