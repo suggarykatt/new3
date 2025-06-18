@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Project 15</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to top, #0d1b2a, #1b263b, #415a77);
+      overflow-x: hidden;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    h1 {
+      font-size: 2.2em;
+      margin-top: 50px;
+    }
+
+    p {
+      font-size: 1.1em;
+      margin: 15px auto 30px;
+      line-height: 1.6;
+      max-width: 90%;
+    }
+
+    .reveal-btn {
+      background-color: #ffffff;
+      color: #0d1b2a;
+      border: none;
+      padding: 14px 32px;
+      font-size: 1em;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin-top: 20px;
+    }
+
+    .reveal-btn:hover {
+      background-color: #e0e0e0;
+    }
+
+    #surprise {
+      display: block;
+      opacity: 0;
+      transform: scale(0.8) translateY(40px);
+      transition: all 1s ease-in-out;
+      margin: 30px auto;
+      font-size: 1.1em;
+      color: #fff;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 20px;
+      border-radius: 15px;
+      max-width: 800px;
+      pointer-events: none;
+      min-height: 120px;
+      backdrop-filter: blur(8px);
+    }
+
+    #surprise.show {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+      pointer-events: auto;
+    }
+
+    .typing-text {
+      white-space: pre-wrap;
+      overflow: hidden;
+      border-right: 2px solid #fff;
+      animation: blink 1s step-end infinite;
+      text-align: left;
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    .background-image {
+      position: fixed;
+      top: 20%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: -2;
+      width: 95%;
+      max-width: 400px;
+      opacity: 0.65;
+      filter: blur(1.5px);
+    }
+
+    .background-image img {
+      width: 100%;
+      border-radius: 20px;
+      object-fit: cover;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    }
+
+   
+
+    .fog-layer2 {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://i.imgur.com/6Z3gX4S.png') repeat;
+      opacity: 0.1;
+      z-index: -3;
+      animation: moveFogLayer2 80s linear infinite;
+    }
+
+    @keyframes moveFog {
+      0% { background-position: 0 0; }
+      100% { background-position: 1000px 0; }
+    }
+
+    @keyframes moveFogLayer2 {
+      0% { background-position: 0 0; }
+      100% { background-position: -1000px 0; }
+    }
+
+   
+
+    .stars, .shooting-star {
+      position: fixed;
+      width: 2px;
+      height: 2px;
+      background: white;
+      box-shadow: 0 0 8px white;
+      z-index: -1;
+      animation: shoot 5s linear infinite;
+    }
+
+    @keyframes shoot {
+      0% { transform: translate(0vw, 0vh); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translate(100vw, 100vh); opacity: 0; }
+    }
+
+    .petal {
+      position: fixed;
+      top: -50px;
+      background-image: url('https://i.imgur.com/EMD8RHP.png');
+      background-size: contain;
+      background-repeat: no-repeat;
+      width: 25px;
+      height: 25px;
+      animation: fall 10s linear infinite;
+      z-index: -1;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-50px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+    }
+
+    .heart {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      background: white;
+      transform: rotate(45deg);
+      animation: float 20s linear infinite;
+      z-index: -2;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: white;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -5px;
+      left: 0;
+    }
+
+    .heart::after {
+      top: 0;
+      left: -5px;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(100vh) rotate(45deg); opacity: 0.8; }
+      100% { transform: translateY(-100vh) rotate(45deg); opacity: 0; }
+    }
+
+    .firefly {
+      position: fixed;
+      width: 4px;
+      height: 4px;
+      background: yellow;
+      border-radius: 50%;
+      box-shadow: 0 0 8px yellow;
+      animation: fly 6s infinite alternate ease-in-out;
+      z-index: -2;
+    }
+
+    @keyframes fly {
+      0% { transform: translate(0, 0); opacity: 0.3; }
+      100% { transform: translate(100px, 50px); opacity: 1; }
+    }
+
+    @media (max-width: 768px) {
+      h1 { font-size: 1.6em; }
+      .background-image { top: 25%; max-width: 320px; }
+      .reveal-btn { padding: 12px 24px; font-size: 0.95em; }
+      #surprise { font-size: 1em; padding: 16px; max-width: 90%; }
+    }
+    
+
+  @keyframes moveFog {
+    from { background-position: 0 0; }
+    to { background-position: 1000px 0; }
+  }
+
+  </style>
+  <div class="fog-layer"></div>
+</head>
+<body>
+  <div class="moon"></div>
+  <div class="fog"></div>
+  <div class="fog-layer2"></div>
+  <audio id="bgMusic" loop>
+    <source src="ashiqui2.mp3" type="audio/mpeg" />
+  </audio>
+  <div class="background-image">
+    <img src="photo2.png" alt="Memory">
+  </div>
+  <h1> 💌 For My Khushi 💞, With All My Aayush 🌸</h1>
+  <p>In a World Full of Chaos , mujhe ek ladki mili for whom i can express all my love 💑💟</p>
+  <button class="reveal-btn" onclick="revealSurprise()">Cick to open the Letter Drenched in My Love for You</button>
+  <div id="surprise">
+    <div id="letter" class="typing-text"></div>
+  </div>
+  <script>
+    const letterText = `To my sweetest kucchupucchu ♥
+
+    Aaj 16 june hai aur raat ke 2 baj rhe hai aur mai pura tumhare khyaalo me khoya hua hu .. saamne laptop pe tumhari photo hai aur ye song peeche chl rha hai .. as of now nothing can be more beautiful for me.
+
+    You are special to me 🤗
+Tum hi ek lauti ho jiske liye mai apni neend khraab kr skta hu aur jisse baate krte krte mai kabhi thakta nhi .. aur sirf tum hi ho jiska sundar sa hasta hua chehra mere dimaag me pure din me na zaane kitni baar aata hai.
+
+khushi sirf tum hi ho jo mujhe smile krva skti hai bina kisi wajah ke aur mere emotions ko affect kr skti ho .. you are the only one I'm afraid of loosing and want to keep you with me for my entire life.
+
+18 june : 
+Aaj yrr hmlog ki kuch jada hi ladai ho gyi .. uske liye really really sorry. Mere intentions tumhe kabhi bhi hurt krne ke nhi hote , mai chahta hu ki jab bhi tum mere baare me socho to tumhari face pe ek sundar si smile aa jaye kyuki mai jab bhi tumhare baaare me sochta hu to mere face pe aa jati hai smile...sundar nhi hoti vo alag baat hai.
+
+Aur ek aur cheez ke liye sorry jo maine tumhe unintentionally count krvaya ki mai kitne efforts krta hu ... maine kabhi aisa soch ke tumhare liye kuch v nhi kiya hai ki mai tumse kuch v saamne se expect karu ki tum bhi mere liye ye sab karo ... mujhe bas tumhare liye kisi v type ki mehnat krna achha lgta hai .. tm pleeeeeeeeeeeeeeaassseeeeee meri kisi bhi baat ko dil pe mt lagana .. mai nhi chahta hu ki tum meri kisi baat se deeply hurt ho jao.
+
+I love you khushii sooooooooooooooooooooooooooooooooooooooooooooo muchhhh ... so so much 💗🤗💐
+    
+with love 
+forever yours 
+stupid Aayush 😄 `;
+
+    function revealSurprise() {
+      const surprise = document.getElementById("surprise");
+      const letter = document.getElementById("letter");
+      surprise.classList.add("show");
+      const music = document.getElementById("bgMusic");
+      music.play().catch(() => console.log("Autoplay blocked"));
+      letter.innerHTML = '';
+      let index = 0;
+      const type = setInterval(() => {
+        if (index < letterText.length) {
+          letter.innerHTML += letterText.charAt(index);
+          index++;
+        } else {
+          clearInterval(type);
+        }
+      }, 35);
+    }
+
+    for (let i = 0; i < 15; i++) {
+      const petal = document.createElement("div");
+      petal.className = "petal";
+      petal.style.left = `${Math.random() * 100}vw`;
+      petal.style.animationDuration = `${7 + Math.random() * 6}s`;
+      document.body.appendChild(petal);
+    }
+
+    for (let i = 0; i < 20; i++) {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = `${Math.random() * 100}vw`;
+      heart.style.animationDuration = `${15 + Math.random() * 10}s`;
+      heart.style.top = `${Math.random() * 100}vh`;
+      document.body.appendChild(heart);
+    }
+
+    for (let i = 0; i < 10; i++) {
+      const firefly = document.createElement("div");
+      firefly.className = "firefly";
+      firefly.style.left = `${Math.random() * 100}vw`;
+      firefly.style.top = `${Math.random() * 100}vh`;
+      firefly.style.animationDuration = `${5 + Math.random() * 5}s`;
+      document.body.appendChild(firefly);
+    }
+  </script>
+</body>
+</html>
